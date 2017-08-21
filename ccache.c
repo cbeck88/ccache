@@ -2911,6 +2911,11 @@ cc_process_args(struct args *args, struct args **preprocessor_args,
 		goto out;
 	}
 
+	if (!conf->run_second_cpp && str_eq(actual_language,"cuda")) {
+		cc_log("Call cuda compiler with original input, not preprocessed input file.");
+		conf->run_second_cpp = true;
+	}
+
 	direct_i_file = language_is_preprocessed(actual_language);
 
 	if (output_is_precompiled_header && !conf->run_second_cpp) {
