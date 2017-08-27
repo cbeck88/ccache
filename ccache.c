@@ -2395,8 +2395,8 @@ cc_process_args(struct args *args, struct args **preprocessor_args,
 			continue;
 		}
 
-		// Alternate form of -o with no space.
-		if (str_startswith(argv[i], "-o")) {
+		// Alternate form of -o with no space. Ignore nvcc -odir.
+		if (str_startswith(argv[i], "-o") && !str_eq(argv[i], "-odir")) {
 			output_obj = make_relative_path(x_strdup(&argv[i][2]));
 			continue;
 		}
